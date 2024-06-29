@@ -63,6 +63,7 @@ func DeleteUser(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "User deleted successfully"})
 }
 
+// Struct CreateUserRequest
 type CreateUserRequest struct {
 	PassportNumber string `json:"passportNumber" binding:"required"`
 }
@@ -74,6 +75,7 @@ func CreateUser(c *gin.Context) {
 		return
 	}
 
+	// Get additional user info from external API
 	userInfo, err := utils.FetchUserInfo(req.PassportNumber)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to fetch user info"})
@@ -96,6 +98,7 @@ func CreateUser(c *gin.Context) {
 	c.JSON(http.StatusCreated, user)
 }
 
+// func GetUser
 func GetUsers(c *gin.Context) {
 	surname := c.Query("surname")
 	name := c.Query("name")

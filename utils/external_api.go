@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"strconv"
 	"strings"
 )
 
@@ -20,9 +21,17 @@ func FetchUserInfo(passportNumber string) (*UserInfo, error) {
 		return nil, fmt.Errorf("invalid passport number format")
 	}
 
-	passportSerie, passportNum := parts[0], parts[1]
+	passportSerie, err := strconv.Atoi(parts[0])
+	if err != nil {
+		return nil, fmt.Errorf("invalid passport serie format")
+	}
 
-	url := fmt.Sprintf("http://external.api/info?passportSerie=%s&passportNumber=%s", passportSerie, passportNum)
+	passportNum, err := strconv.Atoi(parts[1])
+	if err != nil {
+		return nil, fmt.Errorf("invalid passport number format")
+	}
+
+	url := fmt.Sprintf("http://external.api/info?passportSerie=%d&passportNumber=%d", passportSerie, passportNum)
 	resp, err := http.Get(url)
 	if err != nil {
 		return nil, err

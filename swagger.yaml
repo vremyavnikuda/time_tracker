@@ -1,0 +1,50 @@
+openapi: 3.0.3
+info:
+  title: People info
+  version: 0.0.1
+paths:
+  /info:
+    get:
+      parameters:
+        - name: passportSerie
+          in: query
+          required: true
+          schema:
+            type: integer
+        - name: passportNumber
+          in: query
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/People'
+        '400':
+          description: Bad request
+        '500':
+          description: Internal server error
+components:
+  schemas:
+    People:
+      required:
+        - surname
+        - name
+        - address
+      type: object
+      properties:
+        surname:
+          type: string
+          example: Иванов
+        name:
+          type: string
+          example: Иван
+        patronymic:
+          type: string
+          example: Иванович
+        address:
+          type: string
+          example: г. Москва, ул. Ленина, д. 5, кв. 1

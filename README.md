@@ -6,6 +6,7 @@ Start
 ```go
 cd time_tracker
 go mod download
+go mod tidy
 ```
 Run API
 ```go

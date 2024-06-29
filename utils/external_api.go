@@ -3,6 +3,7 @@ package utils
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
 	"strconv"
 	"strings"
@@ -31,7 +32,9 @@ func FetchUserInfo(passportNumber string) (*UserInfo, error) {
 		return nil, fmt.Errorf("invalid passport number format")
 	}
 
-	url := fmt.Sprintf("http://external.api/info?passportSerie=%d&passportNumber=%d", passportSerie, passportNum)
+	// Update URL to point to local mock server
+	url := fmt.Sprintf("http://localhost:8081/info?passportSerie=%d&passportNumber=%d", passportSerie, passportNum)
+	log.Printf("Fetching user info from URL: %s", url)
 	resp, err := http.Get(url)
 	if err != nil {
 		return nil, err
@@ -47,5 +50,6 @@ func FetchUserInfo(passportNumber string) (*UserInfo, error) {
 		return nil, err
 	}
 
+	log.Printf("Fetched user info: %+v", userInfo)
 	return &userInfo, nil
 }

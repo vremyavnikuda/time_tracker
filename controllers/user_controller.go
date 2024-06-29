@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"log"
 	"net/http"
 	"strconv"
 	"time_tracker/models"
@@ -68,6 +69,7 @@ type CreateUserRequest struct {
 	PassportNumber string `json:"passportNumber" binding:"required"`
 }
 
+// CreateUser handles the creation of a new user
 func CreateUser(c *gin.Context) {
 	var req CreateUserRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
@@ -75,10 +77,13 @@ func CreateUser(c *gin.Context) {
 		return
 	}
 
+	log.Printf("Received request to create user with passport number: %s", req.PassportNumber)
+
 	// Get additional user info from external API
 	userInfo, err := utils.FetchUserInfo(req.PassportNumber)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to fetch user info"})
+		log.Printf("Error fetching user info: %v", err)
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to fetch user info", "details": err.Error()})
 		return
 	}
 
@@ -91,6 +96,7 @@ func CreateUser(c *gin.Context) {
 	}
 
 	if err := services.CreateUser(&user); err != nil {
+		log.Printf("Error creating user: %v", err)
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to create user"})
 		return
 	}

@@ -1,0 +1,348 @@
+basePath: /
+definitions:
+  models.TimeEntry:
+    properties:
+      created_at:
+        type: string
+      deleted_at:
+        type: string
+      duration:
+        description: duration in seconds
+        type: integer
+      end_time:
+        type: string
+      id:
+        type: integer
+      start_time:
+        type: string
+      task:
+        type: string
+      updated_at:
+        type: string
+      user_id:
+        type: integer
+    type: object
+  models.User:
+    properties:
+      address:
+        type: string
+      created_at:
+        type: string
+      deleted_at:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      passport_number:
+        type: string
+      passport_serie:
+        type: string
+      patronymic:
+        type: string
+      surname:
+        type: string
+      updated_at:
+        type: string
+    type: object
+host: localhost:63342
+info:
+  contact: {}
+  description: API for time tracking
+  title: Time Tracker API
+  version: "1.0"
+paths:
+  /info:
+    post:
+      consumes:
+      - application/json
+      description: Get user info based on passport number
+      parameters:
+      - description: Passport number
+        in: body
+        name: passportNumber
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.User'
+        "400":
+          description: Invalid input
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Failed to fetch user info
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Get user info
+      tags:
+      - users
+  /time:
+    get:
+      consumes:
+      - application/json
+      description: Get time entries for a user within a specified period
+      parameters:
+      - description: User ID
+        in: query
+        name: user_id
+        required: true
+        type: integer
+      - description: Start Date
+        format: date
+        in: query
+        name: start_date
+        required: true
+        type: string
+      - description: End Date
+        format: date
+        in: query
+        name: end_date
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.TimeEntry'
+            type: array
+        "400":
+          description: Invalid input
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Get time entries
+      tags:
+      - time
+  /time/end/{id}:
+    post:
+      consumes:
+      - application/json
+      description: End an existing time entry for a user
+      parameters:
+      - description: Time Entry ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.TimeEntry'
+        "400":
+          description: Invalid input
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: Time entry not found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: End an existing time entry
+      tags:
+      - time
+  /time/start:
+    post:
+      consumes:
+      - application/json
+      description: Start a new time entry for a user
+      parameters:
+      - description: User ID
+        in: body
+        name: user_id
+        required: true
+        schema:
+          type: integer
+      - description: Task description
+        in: body
+        name: task
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.TimeEntry'
+        "400":
+          description: Invalid input
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Start a new time entry
+      tags:
+      - time
+  /users:
+    get:
+      consumes:
+      - application/json
+      description: Get all users from the database
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.User'
+            type: array
+      summary: Get all users
+      tags:
+      - users
+    post:
+      consumes:
+      - application/json
+      description: Add a new user to the database
+      parameters:
+      - description: Add user
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/models.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.User'
+        "400":
+          description: Invalid input
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Failed to fetch user info
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Add a new user
+      tags:
+      - users
+  /users/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a user from the database by ID
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 'message": "User deleted'
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: 'error": "User not found'
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Delete a user
+      tags:
+      - users
+    put:
+      consumes:
+      - application/json
+      description: Update user information in the database
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Update user
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/models.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.User'
+        "400":
+          description: Invalid input
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: User not found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Update a user
+      tags:
+      - users
+  /users/full:
+    post:
+      consumes:
+      - application/json
+      description: Add a new user with the given passport number and series
+      parameters:
+      - description: Add user with full info
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/models.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.User'
+        "400":
+          description: Invalid input
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Failed to fetch user info
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Add a new user with full info
+      tags:
+      - users
+swagger: "2.0"

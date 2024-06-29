@@ -11,6 +11,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// TODO:controllers->GetUserByID
 func GetUserByID(c *gin.Context) {
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
@@ -27,6 +28,7 @@ func GetUserByID(c *gin.Context) {
 	c.JSON(http.StatusOK, user)
 }
 
+// TODO:controllers->UpdateUser
 func UpdateUser(c *gin.Context) {
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
@@ -49,6 +51,7 @@ func UpdateUser(c *gin.Context) {
 	c.JSON(http.StatusOK, user)
 }
 
+// TODO:controllers->DeleteUser
 func DeleteUser(c *gin.Context) {
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
@@ -64,11 +67,13 @@ func DeleteUser(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "User deleted successfully"})
 }
 
+// TODO:controllers->CreateUserRequest
 // Struct CreateUserRequest
 type CreateUserRequest struct {
 	PassportNumber string `json:"passportNumber" binding:"required"`
 }
 
+// TODO:controllers->CreateUser
 // CreateUser handles the creation of a new user
 func CreateUser(c *gin.Context) {
 	var req CreateUserRequest
@@ -104,6 +109,7 @@ func CreateUser(c *gin.Context) {
 	c.JSON(http.StatusCreated, user)
 }
 
+// TODO:controllers->GetUser
 // func GetUser
 func GetUsers(c *gin.Context) {
 	surname := c.Query("surname")

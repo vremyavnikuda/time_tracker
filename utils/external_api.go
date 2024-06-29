@@ -16,6 +16,7 @@ type UserInfo struct {
 	Address    string `json:"address"`
 }
 
+// TODO:utils->FetchUserInfo
 func FetchUserInfo(passportNumber string) (*UserInfo, error) {
 	parts := strings.Split(passportNumber, " ")
 	if len(parts) != 2 {

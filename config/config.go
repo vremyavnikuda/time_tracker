@@ -13,6 +13,7 @@ import (
 
 var DB *gorm.DB
 
+// TODO:config->InitializeDatabase
 func InitializeDatabase() {
 	dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable",
 		os.Getenv("DB_HOST"), os.Getenv("DB_USER"), os.Getenv("DB_PASSWORD"), os.Getenv("DB_NAME"), os.Getenv("DB_PORT"))
@@ -23,7 +24,7 @@ func InitializeDatabase() {
 	}
 
 	// Run migrations
-	err = DB.AutoMigrate(&models.User{}, &models.Task{})
+	err = DB.AutoMigrate(&models.Task{}, &models.User{})
 	if err != nil {
 		log.Fatalf("Failed to run database migrations: %v", err)
 	}

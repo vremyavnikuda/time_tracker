@@ -5,24 +5,29 @@ import (
 	"time_tracker/models"
 )
 
+// TODO:repositories->CreateUser
 func CreateUser(user *models.User) error {
 	return config.DB.Create(user).Error
 }
 
+// TODO:repositories->GetUserByID
 func GetUserByID(id uint) (models.User, error) {
 	var user models.User
 	result := config.DB.First(&user, id)
 	return user, result.Error
 }
 
+// TODO:repositories->UpdateUser
 func UpdateUser(user *models.User) error {
 	return config.DB.Save(user).Error
 }
 
+// TODO:repositories->DeleteUser
 func DeleteUser(id uint) error {
 	return config.DB.Delete(&models.User{}, id).Error
 }
 
+// TODO:repositories->GetUser
 func GetUsers(surname, name, address string, page, pageSize int) ([]models.User, error) {
 	var users []models.User
 	query := config.DB

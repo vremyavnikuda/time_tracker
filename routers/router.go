@@ -5,16 +5,17 @@ import (
 	"time_tracker/controllers"
 )
 
+// TODO:routers->SetupRouter
 func SetupRouter() *gin.Engine {
 	router := gin.Default()
 
 	userGroup := router.Group("/users")
 	{
-		userGroup.POST("", controllers.CreateUser)
-		userGroup.GET("", controllers.GetUsers)
-		userGroup.GET("/:id", controllers.GetUserByID)
-		userGroup.PUT("/:id", controllers.UpdateUser)
-		userGroup.DELETE("/:id", controllers.DeleteUser)
+		userGroup.POST("/createUser", controllers.CreateUser)
+		userGroup.GET("/getAllUsers", controllers.GetUsers)
+		userGroup.GET("/getUsersByID/:id", controllers.GetUserByID)
+		userGroup.PUT("/updateUser/:id", controllers.UpdateUser)
+		userGroup.DELETE("/deleteUser/:id", controllers.DeleteUser)
 	}
 
 	taskGroup := router.Group("/tasks")

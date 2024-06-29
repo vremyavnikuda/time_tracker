@@ -1,3 +1,17 @@
+golang version
+```go
+go 1.22.4
+```
+Start
+```go
+cd time_tracker
+go mod download
+```
+Run API
+```go
+go run time_tracker/cmd/main.go
+```
+
 ```
 .
 ├── cmd

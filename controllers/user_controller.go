@@ -12,7 +12,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// GetUsers retrieves all users from the database
+// GetUsers
 // @Summary Get all users
 // @Description Get all users from the database
 // @Tags users
@@ -26,7 +26,7 @@ func GetUsers(c *gin.Context) {
 	c.JSON(http.StatusOK, users)
 }
 
-// AddUser adds a new user to the database
+// AddUser
 // @Summary Add a new user
 // @Description Add a new user to the database
 // @Tags users
@@ -80,7 +80,7 @@ func AddUser(c *gin.Context) {
 	c.JSON(http.StatusOK, user)
 }
 
-// GetUserInfo fetches user info based on passport number and returns it
+// GetUserInfo
 // @Summary Get user info
 // @Description Get user info based on passport number
 // @Tags users
@@ -134,7 +134,7 @@ func GetUserInfo(c *gin.Context) {
 	c.JSON(http.StatusOK, userInfo)
 }
 
-// DeleteUser removes a user from the database by ID
+// DeleteUser
 // @Summary Delete a user
 // @Description Delete a user from the database by ID
 // @Tags users
@@ -155,7 +155,7 @@ func DeleteUser(c *gin.Context) {
 	c.JSON(http.StatusOK, map[string]string{"message": "User deleted"})
 }
 
-// UpdateUser updates user information in the database
+// UpdateUser
 // @Summary Update a user
 // @Description Update user information in the database
 // @Tags users
@@ -190,7 +190,7 @@ func UpdateUser(c *gin.Context) {
 	c.JSON(http.StatusOK, user)
 }
 
-// AddUserWithFullInfo adds a new user with the given passport number and series
+// AddUserWithFullInfo
 // @Summary Add a new user with full info
 // @Description Add a new user with the given passport number and series
 // @Tags users

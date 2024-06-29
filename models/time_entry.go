@@ -13,5 +13,5 @@ type TimeEntry struct {
 	Task      string     `json:"task"`
 	StartTime time.Time  `json:"start_time"`
 	EndTime   time.Time  `json:"end_time"`
-	Duration  int64      `json:"duration"` // duration in seconds
+	Duration  int64      `json:"duration"`
 }

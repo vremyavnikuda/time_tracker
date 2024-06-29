@@ -19,8 +19,6 @@ func main() {
 	r := routes.SetupRouter()
 	database.Migrate(database.DB)
 
-	// Убедитесь, что этот маршрут добавлен только один раз
-
 	port := "63342"
 	if err := r.Run(":" + port); err != nil {
 		log.Fatalf("Failed to run server: %v", err)

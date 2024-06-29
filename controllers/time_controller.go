@@ -10,7 +10,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// StartTimeEntry starts a new time entry for a user
+// StartTimeEntry
 // @Summary Start a new time entry
 // @Description Start a new time entry for a user
 // @Tags time
@@ -42,7 +42,7 @@ func StartTimeEntry(c *gin.Context) {
 	c.JSON(http.StatusOK, timeEntry)
 }
 
-// EndTimeEntry ends an existing time entry for a user
+// EndTimeEntry
 // @Summary End an existing time entry
 // @Description End an existing time entry for a user
 // @Tags time
@@ -74,7 +74,7 @@ func EndTimeEntry(c *gin.Context) {
 	c.JSON(http.StatusOK, timeEntry)
 }
 
-// GetTimeEntries retrieves time entries for a user within a specified period
+// GetTimeEntries
 // @Summary Get time entries
 // @Description Get time entries for a user within a specified period
 // @Tags time

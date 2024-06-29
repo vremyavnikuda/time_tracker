@@ -22,7 +22,6 @@ func SetupRouter() *gin.Engine {
 
 	r.POST("/info", controllers.GetUserInfo)
 
-	// Убедитесь, что этот маршрут добавлен только один раз
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	timeRoutes := r.Group("/time")
